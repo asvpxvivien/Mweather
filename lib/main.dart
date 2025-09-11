@@ -35,8 +35,15 @@ class _ApiTestScreenState extends State <ApiTestScreen> {
       _result = "Chargement...";
     });
 
+
     try {
       // Construction de l'URL de l'API
       const String baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
-
-}
+      
+      // Paramètres de la requête
+      final Map<String, dynamic> queryParams = {
+        'q': 'Paris',           // Ville à rechercher
+        'appid': _apiKey,       // Ta clé API
+        'units': 'metric',      // Températures en Celsius
+        'lang': 'fr',          // Langue française
+      };
