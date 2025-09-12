@@ -112,3 +112,44 @@ class _ApiTestScreenState extends State <ApiTestScreen> {
       });
     }
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Test API Météo'),
+        backgroundColor: Colors.blue,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Instructions
+            Container(
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Colors.amber.shade100,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.amber),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "📋 Instructions:",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    "1. Remplacez 'TA_CLE_API_ICI' par votre vraie clé API\n"
+                    "2. Cliquez sur 'Tester l'API'\n"
+                    "3. Vérifiez que vous recevez les données météo",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+            
+            SizedBox(height: 30),
+
