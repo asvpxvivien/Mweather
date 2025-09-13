@@ -1,6 +1,5 @@
-// lib/main.dart
-
 import 'package:flutter/material.dart';
+import 'package:mweather/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'providers/weather_provider.dart';
 import 'screens/weather_test_screen.dart';
@@ -14,7 +13,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        // On enregistre notre WeatherProvider
         ChangeNotifierProvider(create: (context) => WeatherProvider()),
       ],
       child: MaterialApp(
@@ -39,7 +37,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: WeatherTestScreen(),
+        home: HomeScreen(),
       ),
     );
   }
