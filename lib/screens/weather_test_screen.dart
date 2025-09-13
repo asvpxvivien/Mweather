@@ -28,7 +28,6 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
-              // Rafraîchir la météo actuelle
               context.read<WeatherProvider>().refreshWeather();
             },
           ),
@@ -41,12 +40,10 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Section de recherche
                 _buildSearchSection(weatherProvider),
 
                 const SizedBox(height: 20),
 
-                // Section des résultats
                 Expanded(child: _buildResultSection(weatherProvider)),
               ],
             ),
@@ -56,7 +53,6 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
     );
   }
 
-  /// Section de recherche de ville et GPS
   Widget _buildSearchSection(WeatherProvider provider) {
     return Card(
       elevation: 4,
@@ -72,7 +68,6 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
             ),
             const SizedBox(height: 15),
 
-            // Champ de saisie ville
             TextField(
               controller: _cityController,
               decoration: InputDecoration(
@@ -102,10 +97,8 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
 
             const SizedBox(height: 15),
 
-            // Boutons d'action
             Row(
               children: [
-                // Bouton recherche par ville
                 Expanded(
                   child: ElevatedButton.icon(
                     onPressed:
@@ -124,7 +117,6 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
 
                 const SizedBox(width: 10),
 
-                // Bouton GPS
                 Expanded(
                   child: ElevatedButton.icon(
                     onPressed: provider.isLoading
@@ -147,7 +139,6 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
     );
   }
 
-  /// Section des résultats selon l'état du Provider
   Widget _buildResultSection(WeatherProvider provider) {
     if (provider.isEmpty) {
       return _buildEmptyState();
@@ -168,7 +159,6 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
     return _buildEmptyState();
   }
 
-  /// État initial (aucune recherche)
   Widget _buildEmptyState() {
     return Center(
       child: Column(
@@ -195,7 +185,6 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
     );
   }
 
-  /// État de chargement
   Widget _buildLoadingState() {
     return Center(
       child: Column(
@@ -217,7 +206,6 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
     );
   }
 
-  /// État d'erreur
   Widget _buildErrorState(String errorMessage, WeatherProvider provider) {
     return Center(
       child: Card(
@@ -261,7 +249,6 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
     );
   }
 
-  /// État de succès avec les données météo
   Widget _buildSuccessState(WeatherModel weather) {
     return SingleChildScrollView(
       child: Card(
@@ -272,7 +259,6 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // En-tête avec ville et température
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -322,7 +308,6 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
               const Divider(),
               const SizedBox(height: 15),
 
-              // Détails météo
               const Text(
                 '📊 Détails',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -336,7 +321,6 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
 
               const SizedBox(height: 20),
 
-              // Informations techniques (pour débug)
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
@@ -376,7 +360,6 @@ class _WeatherTestScreenState extends State<WeatherTestScreen> {
     );
   }
 
-  /// Widget helper pour les lignes de détails
   Widget _buildDetailRow(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),
