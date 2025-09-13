@@ -21,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    // Animation setup
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 800),
       vsync: this,
@@ -73,7 +72,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  /// Arrière-plan dégradé dynamique
   BoxDecoration _buildGradientBackground() {
     final now = DateTime.now();
     final hour = now.hour;
@@ -81,16 +79,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     List<Color> colors;
 
     if (hour >= 6 && hour < 12) {
-      // Matin - Bleu clair
       colors = [const Color(0xFF87CEEB), const Color(0xFF98D8E8)];
     } else if (hour >= 12 && hour < 18) {
-      // Après-midi - Bleu vif
       colors = [const Color(0xFF4A90E2), const Color(0xFF7BB3F0)];
     } else if (hour >= 18 && hour < 21) {
-      // Soirée - Orange/Rose
       colors = [const Color(0xFFFF7F7F), const Color(0xFFFFB347)];
     } else {
-      // Nuit - Bleu foncé
       colors = [const Color(0xFF2C3E50), const Color(0xFF3498DB)];
     }
 
@@ -103,13 +97,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  /// Barre de recherche moderne
   Widget _buildSearchBar(WeatherProvider provider) {
     return Container(
       padding: const EdgeInsets.all(20.0),
       child: Row(
         children: [
-          // Champ de recherche
           Expanded(
             child: Container(
               decoration: BoxDecoration(
@@ -181,7 +173,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  /// Contenu principal selon l'état
   Widget _buildMainContent(WeatherProvider provider) {
     if (provider.isEmpty) {
       return _buildWelcomeState();
