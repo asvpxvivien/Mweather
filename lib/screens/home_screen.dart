@@ -58,10 +58,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             builder: (context, weatherProvider, child) {
               return Column(
                 children: [
-                  // Barre de recherche moderne
                   _buildSearchBar(weatherProvider),
 
-                  // Contenu principal
                   Expanded(child: _buildMainContent(weatherProvider)),
                 ],
               );
@@ -79,9 +77,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     List<Color> colors;
 
     if (hour >= 6 && hour < 12) {
-      colors = [const Color(0xFF87CEEB), const Color(0xFF98D8E8)];
+      colors = [
+        const Color.fromARGB(255, 61, 54, 208),
+        const Color(0xFF98D8E8),
+      ];
     } else if (hour >= 12 && hour < 18) {
-      colors = [const Color(0xFF4A90E2), const Color(0xFF7BB3F0)];
+      colors = [
+        const Color(0xFF4A90E2),
+        const Color.fromARGB(255, 51, 92, 136),
+      ];
     } else if (hour >= 18 && hour < 21) {
       colors = [const Color(0xFFFF7F7F), const Color(0xFFFFB347)];
     } else {
@@ -140,7 +144,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
           const SizedBox(width: 10),
 
-          // Bouton GPS
           Container(
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.2),
@@ -193,7 +196,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return _buildWelcomeState();
   }
 
-  /// État d'accueil
   Widget _buildWelcomeState() {
     return FadeTransition(
       opacity: _fadeAnimation,
@@ -222,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               const SizedBox(height: 30),
 
               Text(
-                '🌤️ Météo App',
+                '🌤️ MWeather',
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
@@ -230,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   shadows: [
                     Shadow(
                       blurRadius: 10.0,
-                      color: Colors.black.withOpacity(0.3),
+                      color: Colors.black.withValues(alpha: 0.3),
                       offset: const Offset(2.0, 2.0),
                     ),
                   ],
@@ -244,11 +246,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white.withValues(alpha: 0.9),
                   shadows: [
                     Shadow(
                       blurRadius: 5.0,
-                      color: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withValues(alpha: 0.2),
                       offset: const Offset(1.0, 1.0),
                     ),
                   ],
@@ -257,7 +259,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
               const SizedBox(height: 40),
 
-              // Boutons d'action stylés
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -265,7 +266,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     icon: Icons.search,
                     label: 'Rechercher',
                     onPressed: () {
-                      // Focus sur le champ de recherche
                       FocusScope.of(context).requestFocus();
                     },
                   ),
@@ -287,7 +287,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  /// Bouton d'action stylé
   Widget _buildActionButton({
     required IconData icon,
     required String label,
@@ -301,7 +300,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         style: TextStyle(color: Colors.blue[700], fontWeight: FontWeight.w600),
       ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white.withOpacity(0.9),
+        backgroundColor: Colors.white.withValues(alpha: 0.9),
         elevation: 8,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
@@ -309,18 +308,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  /// État de chargement
   Widget _buildLoadingState() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Spinner personnalisé
           Container(
             width: 80,
             height: 80,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(40),
             ),
             child: const Center(
@@ -337,7 +334,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             'Chargement...',
             style: TextStyle(
               fontSize: 20,
-              color: Colors.white.withOpacity(0.9),
+              color: Colors.white.withValues(alpha: 0.9),
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -348,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             'Récupération des données météo',
             style: TextStyle(
               fontSize: 16,
-              color: Colors.white.withOpacity(0.7),
+              color: Colors.white.withValues(alpha: 0.7),
             ),
           ),
         ],
@@ -356,7 +353,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  /// État d'erreur
   Widget _buildErrorState(String errorMessage) {
     return Center(
       child: Padding(
@@ -367,10 +363,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.1),
+                color: Colors.white.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: Colors.white.withOpacity(0.3),
+                  color: Colors.white.withValues(alpha: 0.3),
                   width: 1,
                 ),
               ),
@@ -379,7 +375,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   Icon(
                     Icons.cloud_off,
                     size: 60,
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withValues(alpha: 0.8),
                   ),
 
                   const SizedBox(height: 20),
@@ -400,7 +396,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.white.withOpacity(0.9),
+                      color: Colors.white.withValues(alpha: 0.9),
                     ),
                   ),
 
@@ -416,7 +412,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       style: TextStyle(color: Colors.blue[700]),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white.withOpacity(0.9),
+                      backgroundColor: Colors.white.withValues(alpha: 0.9),
                       elevation: 4,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 24,
@@ -436,7 +432,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  /// Contenu météo principal
   Widget _buildWeatherContent(WeatherModel weather) {
     return FadeTransition(
       opacity: _fadeAnimation,
@@ -444,12 +439,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            // Carte météo principale
             _buildMainWeatherCard(weather),
 
             const SizedBox(height: 20),
 
-            // Cartes de détails
             _buildDetailsCards(weather),
           ],
         ),
@@ -457,20 +450,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  /// Carte météo principale
   Widget _buildMainWeatherCard(WeatherModel weather) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(25),
-        border: Border.all(color: Colors.white.withOpacity(0.3), width: 1),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.3),
+          width: 1,
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(25.0),
         child: Column(
           children: [
-            // Ville
             Text(
               weather.fullLocation,
               style: const TextStyle(
@@ -483,7 +477,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
             const SizedBox(height: 15),
 
-            // Température principale
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -510,24 +503,22 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
             const SizedBox(height: 10),
 
-            // Description
             Text(
               weather.capitalizedDescription,
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.white.withOpacity(0.9),
+                color: Colors.white.withValues(alpha: 0.9),
                 fontWeight: FontWeight.w500,
               ),
             ),
 
             const SizedBox(height: 10),
 
-            // Ressenti
             Text(
               'Ressenti ${weather.formattedFeelsLike}',
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.white.withOpacity(0.7),
+                color: Colors.white.withValues(alpha: 0.7),
               ),
             ),
           ],
@@ -536,7 +527,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  /// Cartes de détails
   Widget _buildDetailsCards(WeatherModel weather) {
     return Column(
       children: [
@@ -589,7 +579,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  /// Carte de détail individuelle
   Widget _buildDetailCard({
     required IconData icon,
     required String title,
@@ -599,13 +588,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withOpacity(0.3), width: 1),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.3),
+          width: 1,
+        ),
       ),
       child: Column(
         children: [
-          Icon(icon, size: 32, color: color.withOpacity(0.8)),
+          Icon(icon, size: 32, color: color.withValues(alpha: 0.8)),
 
           const SizedBox(height: 10),
 
@@ -613,7 +605,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             title,
             style: TextStyle(
               fontSize: 14,
-              color: Colors.white.withOpacity(0.7),
+              color: Colors.white.withValues(alpha: 0.7),
               fontWeight: FontWeight.w500,
             ),
           ),

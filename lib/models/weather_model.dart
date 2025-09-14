@@ -29,7 +29,6 @@ class WeatherModel {
     required this.lon,
   });
 
-  // Convertir les données JSON de l'API en objet WeatherModel
   factory WeatherModel.fromJson(Map<String, dynamic> json) {
     return WeatherModel(
       cityName: json['name'] ?? 'Ville inconnue',
@@ -51,7 +50,6 @@ class WeatherModel {
     );
   }
 
-  // Convertir l'objet en JSON (pour sauvegarder localement)
   Map<String, dynamic> toJson() {
     return {
       'cityName': cityName,
@@ -70,7 +68,6 @@ class WeatherModel {
     };
   }
 
-  // Méthodes utiles pour l'affichage
   String get formattedTemperature => '${temperature.round()}°C';
   String get formattedFeelsLike => '${feelsLike.round()}°C';
   String get formattedHumidity => '${humidity.round()}%';
@@ -79,16 +76,13 @@ class WeatherModel {
   String get formattedVisibility =>
       '${(visibility / 1000).toStringAsFixed(1)} km';
 
-  // URL de l'icône météo
   String get iconUrl => 'https://openweathermap.org/img/wn/$icon@2x.png';
 
-  // Description capitalisée
   String get capitalizedDescription {
     if (description.isEmpty) return '';
     return description[0].toUpperCase() + description.substring(1);
   }
 
-  // Ville complète avec pays
   String get fullLocation => '$cityName, $country';
 
   @override

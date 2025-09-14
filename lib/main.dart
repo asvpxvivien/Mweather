@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mweather/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'providers/weather_provider.dart';
-import 'screens/weather_test_screen.dart';
 
 void main() {
   runApp(MyApp());
