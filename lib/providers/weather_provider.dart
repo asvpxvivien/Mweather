@@ -3,38 +3,27 @@ import 'package:geolocator/geolocator.dart';
 import '../models/weather_model.dart';
 import '../services/weather_service.dart';
 
-enum WeatherStatus {
-  initial, // État initial
-  loading, // Chargement en cours
-  loaded, // Données chargées avec succès
-  error, // Erreur
-}
+enum WeatherStatus { initial, loading, loaded, error }
 
 class WeatherProvider extends ChangeNotifier {
   final WeatherService _weatherService = WeatherService();
 
-  // État actuel
   WeatherStatus _status = WeatherStatus.initial;
   WeatherModel? _currentWeather;
   String _errorMessage = '';
 
-  // Dernière ville recherchée
   String _lastSearchedCity = '';
-
-  // Getters
   WeatherStatus get status => _status;
   WeatherModel? get currentWeather => _currentWeather;
   String get errorMessage => _errorMessage;
   String get lastSearchedCity => _lastSearchedCity;
 
-  // Getters de statut utiles
   bool get isLoading => _status == WeatherStatus.loading;
   bool get hasData =>
       _status == WeatherStatus.loaded && _currentWeather != null;
   bool get hasError => _status == WeatherStatus.error;
   bool get isEmpty => _status == WeatherStatus.initial;
 
-  /// Obtenir la météo par nom de ville
   Future<void> getWeatherByCity(String cityName) async {
     if (cityName.trim().isEmpty) {
       _setError('Veuillez entrer un nom de ville');
@@ -53,20 +42,18 @@ class WeatherProvider extends ChangeNotifier {
       _status = WeatherStatus.loaded;
       _errorMessage = '';
 
-      print('✅ Provider: Météo chargée pour ${weather.cityName}');
+      print('Provider: Météo chargée pour ${weather.cityName}');
       notifyListeners();
     } catch (e) {
-      print('❌ Provider: Erreur météo: $e');
+      print('Provider: Erreur météo: $e');
       _setError(e.toString().replaceAll('WeatherException: ', ''));
     }
   }
 
-  /// Obtenir la météo par géolocalisation
   Future<void> getWeatherByCurrentLocation() async {
     _setLoading();
 
     try {
-      // Vérifier les permissions de géolocalisation
       print('📍 Provider: Vérification permissions GPS...');
 
       LocationPermission permission = await Geolocator.checkPermission();
@@ -83,7 +70,6 @@ class WeatherProvider extends ChangeNotifier {
         );
       }
 
-      // Vérifier si le service de géolocalisation est activé
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
         throw Exception(
@@ -91,8 +77,7 @@ class WeatherProvider extends ChangeNotifier {
         );
       }
 
-      // Obtenir la position actuelle
-      print('🌍 Provider: Récupération position GPS...');
+      print('Provider: Récupération position GPS...');
 
       Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
@@ -102,7 +87,6 @@ class WeatherProvider extends ChangeNotifier {
         '📍 Provider: Position trouvée: ${position.latitude}, ${position.longitude}',
       );
 
-      // Obtenir la météo pour cette position
       final weather = await _weatherService.getCurrentWeatherByCoordinates(
         position.latitude,
         position.longitude,
@@ -113,13 +97,12 @@ class WeatherProvider extends ChangeNotifier {
       _status = WeatherStatus.loaded;
       _errorMessage = '';
 
-      print('✅ Provider: Météo GPS chargée pour ${weather.cityName}');
+      print('Provider: Météo GPS chargée pour ${weather.cityName}');
       notifyListeners();
     } catch (e) {
-      print('❌ Provider: Erreur GPS: $e');
+      print(' Provider: Erreur GPS: $e');
       String errorMsg = e.toString();
 
-      // Messages d'erreur plus user-friendly
       if (errorMsg.contains('denied')) {
         errorMsg = 'Permission GPS refusée';
       } else if (errorMsg.contains('disabled')) {
@@ -132,20 +115,16 @@ class WeatherProvider extends ChangeNotifier {
     }
   }
 
-  /// Rafraîchir la météo actuelle
   Future<void> refreshWeather() async {
     if (_currentWeather != null) {
-      // Re-chercher par ville si on a une ville
       if (_lastSearchedCity.isNotEmpty) {
         await getWeatherByCity(_lastSearchedCity);
       } else {
-        // Sinon, re-chercher par géolocalisation
         await getWeatherByCurrentLocation();
       }
     }
   }
 
-  /// Rechercher des villes pour l'autocomplétion
   Future<List<String>> searchCities(String query) async {
     try {
       return await _weatherService.searchCities(query);
@@ -155,7 +134,6 @@ class WeatherProvider extends ChangeNotifier {
     }
   }
 
-  /// Effacer les données actuelles
   void clearWeather() {
     _currentWeather = null;
     _lastSearchedCity = '';
@@ -164,7 +142,6 @@ class WeatherProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Méthodes privées pour gérer l'état
   void _setLoading() {
     _status = WeatherStatus.loading;
     _errorMessage = '';
@@ -177,7 +154,6 @@ class WeatherProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Debug info
   @override
   String toString() {
     return 'WeatherProvider(status: $_status, city: ${_currentWeather?.cityName ?? 'null'}, error: $_errorMessage)';
