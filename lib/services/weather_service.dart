@@ -21,14 +21,14 @@ class WeatherService {
       LogInterceptor(
         requestBody: false,
         responseBody: false,
-        logPrint: (obj) => print('🌐 API Call: $obj'),
+        logPrint: (obj) => print('API Call: $obj'),
       ),
     );
   }
 
   Future<WeatherModel> getCurrentWeatherByCity(String cityName) async {
     try {
-      print('🔍 Recherche météo pour: $cityName');
+      print('Recherche météo pour: $cityName');
 
       final response = await _dio.get(
         '$_baseUrl/weather',
@@ -51,7 +51,7 @@ class WeatherService {
     double longitude,
   ) async {
     try {
-      print('🌍 Météo par coordonnées: $latitude, $longitude');
+      print('Météo par coordonnées: $latitude, $longitude');
 
       final response = await _dio.get(
         '$_baseUrl/weather',
@@ -91,7 +91,7 @@ class WeatherService {
         }
       }).toList();
     } catch (e) {
-      print('❌ Erreur recherche villes: $e');
+      print('Erreur recherche villes: $e');
       return [];
     }
   }
