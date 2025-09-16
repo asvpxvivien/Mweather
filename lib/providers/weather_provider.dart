@@ -33,7 +33,7 @@ class WeatherProvider extends ChangeNotifier {
     _setLoading();
 
     try {
-      print('🔍 Provider: Recherche météo pour $cityName');
+      print('Provider: Recherche météo pour $cityName');
 
       final weather = await _weatherService.getCurrentWeatherByCity(cityName);
 
@@ -54,7 +54,7 @@ class WeatherProvider extends ChangeNotifier {
     _setLoading();
 
     try {
-      print('📍 Provider: Vérification permissions GPS...');
+      print('Provider: Vérification permissions GPS...');
 
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
@@ -80,7 +80,10 @@ class WeatherProvider extends ChangeNotifier {
       print('Provider: Récupération position GPS...');
 
       Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+          distanceFilter: 100,
+        ),
       );
 
       print(
@@ -129,7 +132,7 @@ class WeatherProvider extends ChangeNotifier {
     try {
       return await _weatherService.searchCities(query);
     } catch (e) {
-      print('❌ Provider: Erreur recherche: $e');
+      print('Provider: Erreur recherche: $e');
       return [];
     }
   }
