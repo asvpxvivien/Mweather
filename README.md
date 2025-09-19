@@ -2,8 +2,6 @@
 
 MWeather is an elegant and intuitive weather application built with Flutter. It allows users to check real-time weather conditions for any city in the world, as well as for their current location.
 
-![MWeather Demo]
-
 <p align = "center">
 <img src="assets/images/weather_app.gif" width="300">
 </p>
