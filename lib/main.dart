@@ -1,5 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:mweather/screens/home_screen.dart';
+import 'package:provider/provider.dart';
+import 'providers/weather_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,24 +10,34 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Test API Météo',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: ApiTestScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => WeatherProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Météo App',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          fontFamily: 'Roboto',
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
+            elevation: 2,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            ),
+          ),
+        ),
+        home: HomeScreen(),
+      ),
     );
   }
-}
-
-class ApiTestScreen extends StatefulWidget {
-  @override
-  _ApiTestScreenState createState() => _ApiTestScreenState();
-}
-
-class _ApiTestScreenState extends State<ApiTestScreen> {
-  String _result = "Appuyez sur le bouton pour tester l'API";
-  bool _isLoading = false;
-
-  final String _apiKey = "9932911459e9fa56a0e0c68bcca852bc";
-
-  final Dio _dio = Dio();
 }

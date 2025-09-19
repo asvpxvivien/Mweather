@@ -1,16 +1,56 @@
-# mweather
+# MWeather - Flutter Weather App
 
-A new Flutter project.
+MWeather is an elegant and intuitive weather application built with Flutter. It allows users to check real-time weather conditions for any city in the world, as well as for their current location.
 
-## Getting Started
+![MWeather Demo](assets/images/weather_app.gif)
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+**City Search**: Search weather for any city in the world.
+**Geolocation**: Get weather for your current location
+**Detailed Data**: Temperature, humidity, wind speed, atmospheric pressure, visibility
+**Modern Interface**: Elegant design with color gradients that change according to the time of day
+**Responsive**: Works on all mobile devices
+**Adaptive Theme**: Interface that automatically adapts to day and night
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Technologies Used
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Flutter**: Cross-platform development framework
+**Dart**: Programming language
+**Provider**: State management
+**Dio**: HTTP client for API calls
+**Geolocator**: GPS position retrieval
+**OpenWeatherMap API**: Source of weather data
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/asvpxvivien/mweather.git
+   ```
+
+2. Navigate to the project folder:
+
+   ```bash
+   cd mweather
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   flutter pub get
+   ```
+
+4. Run the application:
+   ```bash
+   flutter run
+   ```
+
+## Configuration
+
+The app uses the OpenWeatherMap API. The API key is already included in the code, but you can modify it in [lib/services/weather_service.dart]
+
+```dart
+static const String _apiKey = 'YOUR_API_KEY_HERE';
+```
