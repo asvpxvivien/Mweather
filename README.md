@@ -6,7 +6,7 @@ MWeather is an elegant and intuitive weather application built with Flutter. It 
 
 ## Features
 
-**City Search**: Search weather for any city in the world
+**City Search**: Search weather for any city in the world.
 **Geolocation**: Get weather for your current location
 **Detailed Data**: Temperature, humidity, wind speed, atmospheric pressure, visibility
 **Modern Interface**: Elegant design with color gradients that change according to the time of day
